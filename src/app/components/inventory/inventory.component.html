@@ -1,0 +1,90 @@
+<h2>Lista de Productos</h2>
+<div class="input-group">
+    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#inventoryModal" (click)="onCreate()">Crear </button>
+    <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+    <input type="text" class="form-control"  aria-describedby="basic-addon1" name="flt" id="flt" [(ngModel)]="flt">
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Producto</th>
+      <th>Marca</th>
+      <th>Proveedor</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th style="width: 50px"></th>
+      <th style="width: 50px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items | filter:flt; let i = index">
+      <td>{{i +1}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.brand}}</td>
+      <td>{{item.provider}}</td>
+      <td>{{item.quantity}}</td>
+      <td>{{item.price}}</td>
+      <td><button type="button" class="btn btn-sm btn-primary" (click)="onEdit(item)" data-toggle="modal" data-target="#inventoryModal">Editar </button></td>
+      <td><button type="button" class="btn btn-sm btn-danger"  (click)="onDelete(item._id)" >Eliminar </button></td>
+
+    </tr>
+  </tbody>
+</table>
+
+<div id="inventoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="inventoryModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="inventoryModalLabel">Producto</h4>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="item">
+          <form #f="ngForm">
+            <div class="form-group">
+              <label for="name">Producto</label>
+              <input id="name" name="name"
+                placeholder="Nombre"
+                [(ngModel)]="item.name"
+                #name="ngModel"
+                required minlength="4"
+                type="text"
+                class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="brand">Marca</label>
+              <input id="lastName" name="brand"
+                placeholder="Marca"
+                [(ngModel)]="item.brand"
+                type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label for="provider">Proveedor</label>
+              <input id="provider" name="provider"
+                placeholder="Proveedor" [(ngModel)]="item.provider"
+                type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label for="quantity">Cantidad</label>
+              <input id="quantity" name="quantity"
+                placeholder="Cantidad" [(ngModel)]="item.quantity"
+                type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label for="price">Precio</label>
+              <input id="price" name="price"
+                placeholder="Precio" [(ngModel)]="item.price"
+                type="text" class="form-control" >
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSave(item)">Guardar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

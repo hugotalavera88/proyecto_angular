@@ -1,0 +1,21 @@
+<table class="table">
+        <thead>
+            <tr >
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="info" *ngFor="let user of users | filter:flt; let indx = index ">
+              <td>{{indx +1}}</td>
+              <td>{{user.name}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
+            </tr>
+
+
+        </tbody>
+    </table>
